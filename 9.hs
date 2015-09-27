@@ -1,4 +1,3 @@
-
 import           Test.Hspec
 
 -- Problem 9
