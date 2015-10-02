@@ -10,7 +10,7 @@ rotate ls p
 
 main :: IO()
 main = hspec $
-  describe "99-exercises.19 = " $
+  describe "99-exercises.19 = Rotate a list n places" $
     it "should drop each n'th element in a list" $ do
       rotate "abcdefgh" 3 `shouldBe` "defghabc"
       rotate "abcdefgh" (-2) `shouldBe` "ghabcdef"
