@@ -36,8 +36,13 @@ calculateShortestPath (pathA, pathB) (Section a b c) =
                         else (C,c):(A,a):pathA
   in (newPathToA, newPathToB)
 
+calculatePaths :: RoadSystem -> (Path, Path)
+calculatePaths = foldl calculateShortestPath ([],[]) 
+
 main :: IO()
 main = hspec $
-  describe "Road from heathrowToLondon" $
+  describe "Road from heathrowToLondon" $ do
     it "should calculate the shortest path in each section for A and B" $
       calculateShortestPath ([], []) (head heathrowToLondon) `shouldBe` ([(C,30),(B,10)],[(B,10)])
+    it "should get the sections " $
+      calculatePaths heathrowToLondon `shouldBe` ([(C,30),(B,10)],[(B,10)])
