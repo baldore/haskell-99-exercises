@@ -36,8 +36,13 @@ calculateShortestPath (pathA, pathB) (Section a b c) =
                         else (C,c):(A,a):pathA
   in (newPathToA, newPathToB)
 
-calculatePaths :: RoadSystem -> (Path, Path)
-calculatePaths = foldl calculateShortestPath ([],[]) 
+-- Get the shortest path of the road system
+getShortestPath :: RoadSystem -> (Path, Int)
+getShortestPath roadSystem =
+  let (pathA, pathB) = foldl calculateShortestPath ([],[]) roadSystem
+      getTotal = sum . map snd
+      shortestPath = if getTotal pathA <= getTotal pathB then pathA else pathB
+  in (reverse shortestPath, getTotal shortestPath)
 
 main :: IO()
 main = hspec $
@@ -45,4 +50,4 @@ main = hspec $
     it "should calculate the shortest path in each section for A and B" $
       calculateShortestPath ([], []) (head heathrowToLondon) `shouldBe` ([(C,30),(B,10)],[(B,10)])
     it "should get the sections " $
-      calculatePaths heathrowToLondon `shouldBe` ([(C,30),(B,10)],[(B,10)])
+      getShortestPath heathrowToLondon `shouldBe` ([(B,10),(C,30),(A,5),(C,20),(B,2),(B,8),(C,0)], 75)
