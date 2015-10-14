@@ -8,7 +8,7 @@ isPrime n = primes == 1
 
 main :: IO()
 main = hspec $
-  describe "99-exercises.31 = is prime number?" $
+  describe "99-exercises.31 = is it a prime number?" $
     it "should determine if a number is prime" $ do
       isPrime 7  `shouldBe` True
       isPrime 10 `shouldBe` False
